@@ -1,0 +1,5 @@
+[toolchain]
+channel    = "nightly"
+profile    = "default"
+targets    = ["x86_64-unknown-none", "x86_64-unknown-uefi"]
+components = ["rust-analyzer", "rust-src", "llvm-tools", "miri"]
