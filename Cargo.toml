@@ -1,16 +1,21 @@
 #:schema https://www.schemastore.org/cargo.json
-[package]
-name    = "ravenos"
-version = "0.1.0"
-edition = "2024"
-license = "MIT OR Apache-2.0"
-publish = false
 
-[dependencies]
-libc = "0.2"
+[workspace]
+resolver = "3"
+members  = ["crates/*"]
+
+[workspace.package]
+version    = "0.1.0"
+edition    = "2024"
+repository = "https://github.com/princemuel/ravenos"
+license    = "MIT OR Apache-2.0"
+publish    = false
+
+[workspace.dependencies]
+libc     = "0.2"
 xmas-elf = "0.10"
 
- [lints.clippy]
+[workspace.lints.clippy]
 all      = { level = "warn", priority = -1 }
 pedantic = { level = "warn", priority = -1 }
 
@@ -83,7 +88,7 @@ unused_trait_names                   = "warn"
 unwrap_used                          = "warn"
 verbose_file_reads                   = "warn"
 
-[lints.rust]
+[workspace.lints.rust]
 future-incompatible                        = { level = "warn", priority = -1 }
 # --- Safety & correctness ---
 nonstandard-style                          = { level = "warn", priority = -1 }
@@ -137,4 +142,3 @@ strip         = "symbols"
 lto           = true
 panic         = "abort"
 codegen-units = 1
-
