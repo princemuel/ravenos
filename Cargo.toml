@@ -130,10 +130,10 @@ lto           = true
 codegen-units = 1
 
 [profile.dev]
-opt-level       = "z"
-debug           = false
-overflow-checks = true
-lto             = false
+# opt-level       = "z"
+# debug           = false
+# overflow-checks = true
+# lto             = false
 incremental     = true
 
 [profile.release]
