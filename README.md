@@ -1,1 +1,1 @@
-# The Raven Operating System (Ravenos)
+# raven operating system (riscv)
