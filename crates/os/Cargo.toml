@@ -1,5 +1,5 @@
 [package]
-name                 = "ravenos"
+name                 = "os"
 version.workspace    = true
 edition.workspace    = true
 repository.workspace = true
