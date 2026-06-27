@@ -134,11 +134,12 @@ codegen-units = 1
 # debug           = false
 # overflow-checks = true
 # lto             = false
-incremental     = true
+incremental = true
 
 [profile.release]
 opt-level     = 3
-strip         = "symbols"
+debug         = true
+# strip         = "symbols"
 lto           = true
 panic         = "abort"
 codegen-units = 1
