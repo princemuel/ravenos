@@ -4,7 +4,7 @@ BASE_ADDRESS = 0x80200000;
 
 SECTIONS
 {
-    . = BASE_ADDRESS
+    . = BASE_ADDRESS;
     skernel = .;
 
     stext = .;

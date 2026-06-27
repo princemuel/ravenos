@@ -138,8 +138,7 @@ incremental = true
 
 [profile.release]
 opt-level     = 3
-debug         = true
-# strip         = "symbols"
-lto           = true
+strip         = "symbols"
+lto           = "fat"
 panic         = "abort"
 codegen-units = 1
