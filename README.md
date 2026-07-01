@@ -1,8 +1,8 @@
-# Ravenos
+# ravenos (ra·vuh·nuhs)
 
 An experimental 64-bit RISC-V operating system kernel written in Rust.
 
-Ravenos is a bare-metal S-mode kernel targeting the RISC-V architecture, built from scratch as a learning project and reference implementation. The goal is to progressively implement the core subsystems of a real operating system (boot, console I/O, batch execution, memory management) on QEMU-emulated RISC-V hardware, without relying on any existing OS or runtime.
+Ravenos is a bare-metal S-mode kernel targeting the RISC-V architecture. The goal is to progressively implement the core subsystems of a real operating system (boot, console I/O, batch execution, memory management) on QEMU-emulated RISC-V hardware (real hardware later), without relying on any existing OS or runtime.
 
 ## Milestones
 
@@ -52,6 +52,14 @@ rustc --version
 cargo --version
 ```
 
+Next, install some Rust-related packages.
+
+```bash
+cargo install cargo-binutils
+rustup component add llvm-tools
+rustup component add rust-src
+```
+
 ### RISC-V 64 Compilation Target
 
 ```bash
@@ -68,11 +76,11 @@ This target triplet means:
 | `elf`       | ELF output, no standard runtime                                        |
 
 > [!TIP]
-> **G = IMAFD:** integer base (I) + multiply (M) + atomics (A) + single-precision float (F) + double-precision float (D). `riscv64gc` is shorthand for `riscv64imafdc`.
+> **G = IMAFD:** integer base (I) + integer multiply (M) + atomics (A) + single-precision float (F) + double-precision float (D). `riscv64gc` is shorthand for `riscv64imafdc`.
 
-### QEMU Emulator
+### QEMU Emulator (7.0+)
 
-Ravenos runs on a QEMU-emulated RISC-V 64 virtual machine and requires `qemu-system-riscv64` >= 7.0.
+ravenos runs on a QEMU-emulated RISC-V 64 virtual machine and requires `qemu-system-riscv64` >= 7.0.
 
 **Arch Linux:**
 
@@ -103,4 +111,4 @@ qemu-system-riscv64 --version
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+This project is licensed under the [MIT](LICENSE-MIT) and [Apache](LICENSE-APACHE) licenses.
