@@ -4,10 +4,10 @@ exclude = ["node_modules/**/*.toml"]
 [format]
 [format.rules]
 key-value-equals-sign-alignment = true
-line-width                      = 96
+line-width = 88
 
 [lsp]
-goto-type-definition.enabled = false
+goto-type-definition.enabled = true
 
 [schema]
 strict = false
