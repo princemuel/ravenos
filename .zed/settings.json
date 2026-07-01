@@ -1,0 +1,62 @@
+// Folder-specific settings
+//
+// For a full list of overridable settings, and general information on folder-specific settings,
+// see the documentation: https://zed.dev/docs/configuring-zed#settings-files
+{
+  "semantic_tokens": "combined",
+  "languages": {
+    "Shell Script": {
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "shfmt",
+          // Change `--indent 2` to match your preferred tab_size
+          "arguments": ["--filename", "{buffer_path}", "--indent", "2"],
+        },
+      },
+    },
+    "reST": { "language_servers": ["esbonio"] },
+  },
+  "lsp": {
+    "esbonio": {
+      "binary": { "path": "/home/maia/.local/bin/esbonio", "arguments": ["server"] },
+      "initialization_options": { "sphinx": { "pythonCommand": ["/usr/bin/python3"] } },
+    },
+    "rust-analyzer": {
+      "initialization_options": {
+        // Rust Analyzer settings
+        "rustc": { "source": "discover" },
+        "assist": { "preferSelf": true, "emitMustUse": true },
+        "cargo": {
+          "allTargets": false,
+          "extraArgs": ["-Zjson-target-spec", "-Zunstable-options"],
+          "extraEnv": { "RUSTFLAGS": "-Zunstable-options", "CARGO_LOG": "info" },
+          "features": [],
+          "targetDir": true,
+        },
+        "check": { "command": "clippy" },
+        "checkOnSave": true,
+        "completion": { "autoimport": { "enable": true } },
+        "imports": {
+          "group": { "enable": true },
+          "granularity": { "enforce": true, "group": "module" },
+          "prefix": "crate",
+          "merge": { "glob": true },
+          "preferNoStd": true,
+          "preferPrelude": true,
+        },
+        "inlayHints": {
+          "typeHints": { "enable": false },
+          "chainingHints": { "enable": false },
+          "parameterHints": { "enable": false },
+        },
+        "rustfmt": { "extraArgs": ["+nightly"] },
+        "semanticHighlighting": {
+          "doc": { "comment": { "inject": { "enable": true } } },
+          "punctuation": { "enable": true, "specialization": { "enable": true } },
+        },
+        "textExplorer": true,
+      },
+    },
+  },
+}
