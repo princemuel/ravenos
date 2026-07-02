@@ -13,13 +13,13 @@ pub extern "C" fn main() -> ! {
     clear_bss();
     println!("Hello, world!");
 
-    loop {}
+    panic!("")
 }
 
 fn clear_bss() {
     unsafe extern "C" {
-        unsafe static sbss: u8;
-        unsafe static ebss: u8;
+        safe static sbss: u8;
+        safe static ebss: u8;
     }
 
     let start: *mut u8 = (&raw const sbss).cast_mut();
@@ -30,10 +30,10 @@ fn clear_bss() {
         .expect("ebss must not precede sbss - check the linker script's section ordering");
 
     // SAFETY: `sbss`/`ebss` are linker-provided symbols marking the bounds
-    // of the .bss section (see linker.ld). At this point in early boot no
-    // Rust references exist into this range, and the CPU's stack pointer was set to
+    // of the .bss section (see linker.ld). At this point in early boot, no
+    // Rust references exist into this range, and the CPU's stack pointer is set to
     // `.bss.stack`, which the linker script places outside [sbss, ebss). The
-    // range is therefore valid for writes and is not aliased.
+    // range is therefore valid for writes and unaliased.
     unsafe {
         core::ptr::write_bytes(start, 0, len);
     }
