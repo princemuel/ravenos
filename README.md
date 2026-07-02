@@ -11,6 +11,7 @@ Ravenos is a bare-metal S-mode kernel targeting the RISC-V architecture. The goa
 - [ ] Basic UART/Console text output (`println!` macro)
 - [ ] Batch application loading and execution
 - [ ] Memory Management & Paging
+- [ ] and more...
 
 ## Quick Start
 
