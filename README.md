@@ -19,7 +19,6 @@ Once prerequisites are installed (see below), clone and run:
 ```bash
 git clone https://github.com/princemuel/ravenos.git
 cd ravenos
-cargo build --release
 ```
 
 ```bash
