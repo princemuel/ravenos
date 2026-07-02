@@ -18,8 +18,8 @@ pub extern "C" fn main() -> ! {
 
 fn clear_bss() {
     unsafe extern "C" {
-        safe static sbss: u8;
-        safe static ebss: u8;
+        static sbss: u8;
+        static ebss: u8;
     }
 
     let start: *mut u8 = (&raw const sbss).cast_mut();

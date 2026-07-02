@@ -7,7 +7,7 @@ Ravenos is a bare-metal S-mode kernel targeting the RISC-V architecture. The goa
 ## Milestones
 
 - [x] Bare-metal environment setup (`no_std`)
-- [ ] Bootstrapping via SBI / OpenSBI
+- [x] Bootstrapping via SBI / OpenSBI
 - [ ] Basic UART/Console text output (`println!` macro)
 - [ ] Batch application loading and execution
 - [ ] Memory Management & Paging
