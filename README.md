@@ -19,7 +19,20 @@ Once prerequisites are installed (see below), clone and run:
 ```bash
 git clone https://github.com/princemuel/ravenos.git
 cd ravenos
-cargo run
+cargo build --release
+```
+
+```bash
+cargo build --release
+
+rust-objcopy --strip-all target/riscv64gc-unknown-none-elf/release/os \
+-Obinary target/riscv64gc-unknown-none-elf/release/os.bin
+
+qemu-system-riscv64 \
+  -machine virt \
+  -nographic \
+  -bios bootloader/rustsbi.bin \
+  -device loader,file=target/riscv64gc-unknown-none-elf/release/os.bin,addr=0x80200000
 ```
 
 This will build the kernel and launch it inside a QEMU RISC-V 64 virtual machine.

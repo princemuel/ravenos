@@ -11,9 +11,9 @@ core::arch::global_asm!(include_str!("entry.asm"));
 #[unsafe(no_mangle)]
 pub extern "C" fn main() -> ! {
     clear_bss();
-    println!("Hello, world!");
 
-    panic!("")
+    println!("Hello, world!");
+    panic!("Shutdown machine!");
 }
 
 fn clear_bss() {
