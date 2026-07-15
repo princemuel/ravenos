@@ -1,5 +1,5 @@
 [package]
-name                 = "os"
+name                 = "console"
 version.workspace    = true
 edition.workspace    = true
 repository.workspace = true
@@ -7,9 +7,8 @@ license.workspace    = true
 publish.workspace    = true
 
 [dependencies]
-console.workspace = true
-riscv.workspace   = true
-sbi-rt.workspace  = true
+log            = "0.4"
+spin.workspace = true
 
 [lints]
 workspace = true

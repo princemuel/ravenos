@@ -4,8 +4,8 @@ use crate::sbi::shutdown;
 
 #[panic_handler]
 pub(crate) fn panic(info: &PanicInfo<'_>) -> ! {
-    if let Some(location) = info.location() {
-        println!("Panicked at {}:{} {}", location.file(), location.line(), info.message());
+    if let Some(loc) = info.location() {
+        println!("Panicked at {}:{} {}", loc.file(), loc.line(), info.message());
     } else {
         println!("Panicked: {}", info.message());
     }

@@ -12,6 +12,11 @@ license    = "MIT OR Apache-2.0"
 publish    = false
 
 [workspace.dependencies]
+console = { path = "./crates/console" }
+############################
+riscv   = "0.16"
+sbi-rt  = "0.0.4"
+spin    = "0.12"
 
 [workspace.lints.clippy]
 all         = { level = "warn", priority = -1 }
@@ -97,17 +102,22 @@ debug         = false
 lto           = true
 codegen-units = 1
 
+# cargo build/run
 [profile.dev]
-opt-level       = 1
-debug           = 2
-overflow-checks = true
-lto             = false
-incremental     = true
+# default is opt-level = '0', but that makes very
+# verbose machine code
+opt-level     = "s"
+# trade compile speed for slightly better optimisations
+codegen-units = 1
 
+# cargo build/run --release
 [profile.release]
-opt-level     = 3
+# default is opt-level = '3', but that makes quite verbose machine code
+opt-level     = "s"
+# Leave the debug symbols in (default is no debug info)
 debug         = 2
-strip         = "none"
+# Use Link Time Optimisations to further inline things across
+# crates
 lto           = "fat"
-panic         = "abort"
+# trade compile speed for slightly better optimisations
 codegen-units = 1

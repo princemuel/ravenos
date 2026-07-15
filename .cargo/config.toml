@@ -1,8 +1,8 @@
 [build]
 target = "riscv64gc-unknown-none-elf"
 
-[unstable]
-bindeps            = true
-build-std          = ["alloc", "compiler_builtins", "core"]
-build-std-features = ["compiler-builtins-mem"]
-json-target-spec   = true
+# [unstable]
+# bindeps            = true
+# build-std          = ["alloc", "compiler_builtins", "core"]
+# build-std-features = ["compiler-builtins-mem"]
+# json-target-spec   = true

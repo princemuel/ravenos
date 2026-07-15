@@ -1,30 +1,31 @@
-use core::fmt::{self, Write};
-
 use crate::sbi;
 
 struct Stdout;
 
-impl Write for Stdout {
-    fn write_str(&mut self, s: &str) -> fmt::Result {
+impl core::fmt::Write for Stdout {
+    fn write_str(&mut self, s: &str) -> core::fmt::Result {
         for byte in s.bytes() {
             sbi::console_write_byte(byte);
         }
+
         Ok(())
     }
 }
 
-pub(crate) fn print(args: fmt::Arguments<'_>) { let _ret = Stdout.write_fmt(args).ok(); }
-
 #[macro_export]
 macro_rules! print {
-    ($fmt: literal $(, $($arg: tt)+)?) => {
-        $crate::console::print(format_args!($fmt $(, $($arg)+)?));
-    }
+    ($($arg:tt)*) => ($crate::console::print(format_args!($($arg)*)));
 }
 
 #[macro_export]
 macro_rules! println {
-    ($fmt: literal $(, $($arg: tt)+)?) => {
-        $crate::console::print(format_args!(concat!($fmt, "\n") $(, $($arg)+)?));
-    }
+    () => ($crate::print!("\n"));
+    ($($arg:tt)*) => ($crate::print!("{}\n", format_args!($($arg)*)));
+}
+
+#[doc(hidden)]
+pub(crate) fn print(args: core::fmt::Arguments<'_>) {
+    use core::fmt::Write as _;
+    #[expect(clippy::expect_used, reason = "will refactor later")]
+    Stdout.write_fmt(args).expect("failed to write to stdout");
 }
