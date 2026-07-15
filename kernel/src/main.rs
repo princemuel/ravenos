@@ -1,18 +1,25 @@
 #![no_std]
 #![no_main]
 
-#[macro_use]
-mod console;
 mod lang_items;
+mod logging;
 mod sbi;
 
-core::arch::global_asm!(include_str!("entry.asm"));
+use core::arch::global_asm;
+
+use console::println;
+// use log::*;
+
+global_asm!(include_str!("entry.asm"));
 
 #[unsafe(no_mangle)]
 pub extern "C" fn main() -> ! {
     clear_bss();
-    println!("Hello, world!");
-    panic!("Shutdown machine!")
+    logging::init();
+
+    println!("[kernel] Hello, world!");
+
+    panic!("[kernel] exited");
 }
 
 fn clear_bss() {

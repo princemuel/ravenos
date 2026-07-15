@@ -8,8 +8,10 @@ publish.workspace    = true
 
 [dependencies]
 console.workspace = true
-riscv.workspace   = true
-sbi-rt.workspace  = true
+
+log.workspace    = true
+riscv.workspace  = true
+sbi-rt.workspace = true
 
 [lints]
 workspace = true

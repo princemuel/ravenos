@@ -1,8 +1,5 @@
 [build]
 target = "riscv64gc-unknown-none-elf"
 
-# [unstable]
-# bindeps            = true
-# build-std          = ["alloc", "compiler_builtins", "core"]
-# build-std-features = ["compiler-builtins-mem"]
-# json-target-spec   = true
+[target.riscv64gc-unknown-none-elf]
+rustflags = ["-Cforce-frame-pointers=yes"]

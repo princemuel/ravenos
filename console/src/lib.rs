@@ -3,7 +3,7 @@
 use log::{Level, LevelFilter, Log, Metadata, Record};
 use spin::Once;
 
-pub trait Console: Sync {
+pub trait Stdout: Sync {
     fn putc(&self, val: u8);
 
     #[inline]
@@ -14,20 +14,23 @@ pub trait Console: Sync {
     }
 }
 
-static CONSOLE: Once<&'static dyn Console> = Once::new();
+static CONSOLE: Once<&'static dyn Stdout> = Once::new();
 
 #[inline]
-pub fn init_console(console: &'static dyn Console) {
+pub fn init(console: &'static dyn Stdout) {
     let _ = CONSOLE.call_once(|| console);
     log::set_logger(&Logger).expect("failed to initialize Logger");
 }
 
 #[inline]
 pub fn set_log_level(val: Option<&str>) {
-    log::set_max_level(
-        val.and_then(|lvl| lvl.parse().ok())
-            .unwrap_or(LevelFilter::Trace),
-    );
+    log::set_max_level(match val {
+        Some("ERROR") => LevelFilter::Error,
+        Some("WARN") => LevelFilter::Warn,
+        Some("DEBUG") => LevelFilter::Debug,
+        Some("TRACE") => LevelFilter::Trace,
+        _ => LevelFilter::Info,
+    });
 }
 
 #[inline]
@@ -78,18 +81,22 @@ impl core::fmt::Write for Logger {
 }
 
 impl Log for Logger {
-    fn enabled(&self, metadata: &Metadata<'_>) -> bool { metadata.level() <= Level::Info }
+    fn enabled(&self, _metadata: &Metadata<'_>) -> bool { true }
+
+    // fn enabled(&self, metadata: &Metadata<'_>) -> bool { metadata.level() <=
+    // Level::Info
+    // }
 
     fn log(&self, record: &Record<'_>) {
-        let code = match record.level() {
-            Level::Error => 31u8,
-            Level::Warn => 93,
-            Level::Info => 34,
-            Level::Debug => 32,
-            Level::Trace => 90,
+        let color = match record.level() {
+            Level::Error => 31u8, // Red
+            Level::Warn => 93,    // BrightYellow
+            Level::Info => 34,    // Blue
+            Level::Debug => 32,   // Green
+            Level::Trace => 90,   // BrightBlack
         };
 
-        println!("\x1b[{code}m[{:>5}] {}\x1b[0m", record.level(), record.args());
+        println!("\u{1b}[{color}m[{:>5}] {}\u{1b}[0m", record.level(), record.args(),);
     }
 
     fn flush(&self) {}

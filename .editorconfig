@@ -10,7 +10,7 @@ insert_final_newline = true
 end_of_line = lf
 indent_style = space
 indent_size = 2
-max_line_length = 120
+max_line_length = 112
 trim_trailing_whitespace = true
 
 [{*.db,*.sql,*.sqlite}]
@@ -21,6 +21,10 @@ max_line_length = 108
 indent_size = 2
 max_line_length = 108
 
+[{*.scm,*.ss,*.rkt}]
+indent_size = unset
+max_line_length = 80
+
 [{*.py,*.pyi}]
 indent_size = 4
 max_line_length = 96
@@ -30,9 +34,6 @@ indent_size = 2
 max_line_length = 96
 
 [{*.rs,*.zig}]
-indent_size = 4
-
-[{*.S,*.ld,*.asm,*.nasm}]
 indent_size = 4
 
 [{*.c,*.h,*.cpp,*.hpp,*.cc,*.cxx,*.hh,*.hxx}]
@@ -52,11 +53,11 @@ indent_size = 2
 
 [*.go]
 indent_style = tab
-indent_size = unset # Allow user-defined tab width
+indent_size = unset
 
 [Makefile]
 indent_style = tab
-indent_size = unset # Allow user-defined tab width
+indent_size = unset
 
 [CMakeLists.txt]
 indent_size = 4
