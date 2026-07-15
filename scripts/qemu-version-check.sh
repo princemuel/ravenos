@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Argument1: The filename of qemu executable, e.g. qemu-system-riscv64
 QEMU_PATH=$(which $1)
 RET=$?
-MINIMUM_MAJOR_VERSION=7
+MINIMUM_MAJOR_VERSION=10
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
