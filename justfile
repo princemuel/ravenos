@@ -39,7 +39,7 @@ kernel-bin: kernel
     {{ objcopy }} {{ kernel_elf }} --strip-all -O binary {{ kernel_bin }}
 
 kernel:
-    cd ../user && make build
+    cd user && make build
     @echo Platform: {{ board }}
     cp src/linker-{{ board }}.ld src/linker.ld
     cargo build {{ mode_arg }}
@@ -57,17 +57,16 @@ disasm-vim: kernel
     rm {{ disasm_tmp }}
 
 qemu-version-check:
-    sh scripts/qemu-ver-check.sh {{ qemu_name }}
+    sh scripts/qemu-version-check.sh {{ qemu_name }}
 
 run: qemu-version-check build
     qemu-system-riscv64 {{ qemu_args }}
 
-# Spawns QEMU (halted, gdbstub on :1234) in its own Konsole window,
-# then attaches gdb in this terminal.
+# Launches QEMU (halted, waiting for gdb) and a gdb client, each in its own Konsole window.
 debug: qemu-version-check build
     konsole --new-tab -e bash -c "qemu-system-riscv64 {{ qemu_args }} -s -S; exec bash" &
     sleep 1
-    riscv64-unknown-elf-gdb -ex 'file {{ kernel_elf }}' -ex 'set arch riscv:rv64' -ex 'target remote localhost:1234'
+    konsole --new-tab -e bash -c "riscv64-unknown-elf-gdb -ex 'file {{ kernel_elf }}' -ex 'set arch riscv:rv64' -ex 'target remote localhost:1234'; exec bash" &
 
 gdbserver: qemu-version-check build
     qemu-system-riscv64 {{ qemu_args }} -s -S

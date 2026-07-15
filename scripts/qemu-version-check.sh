@@ -7,20 +7,18 @@ MINIMUM_MAJOR_VERSION=10
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
-if [ $RET != 0 ]
-then
-    echo "$1 not found"
-    exit 1
+if [ $RET != 0 ]; then
+  echo "$1 not found"
+  exit 1
 else
-    QEMU_VERSION=$($1 --version|head -n 1|awk '{print $4}')
-    MAJOR_VERSION=$(echo $QEMU_VERSION | awk -F '.' '{print $1}')
-    if [ $MAJOR_VERSION -lt $MINIMUM_MAJOR_VERSION ]
-    then
-        echo "${RED}Error: Required major version of QEMU is ${MINIMUM_MAJOR_VERSION}, " \
-             "but current is ${QEMU_VERSION}.${NC}"
-        exit 1
-    else
-        echo "${GREEN}QEMU version is ${QEMU_VERSION}(>=${MINIMUM_MAJOR_VERSION}), OK!${NC}"
-        exit 0
-    fi
+  QEMU_VERSION=$($1 --version | head -n 1 | awk '{print $4}')
+  MAJOR_VERSION=$(echo $QEMU_VERSION | awk -F '.' '{print $1}')
+  if [ $MAJOR_VERSION -lt $MINIMUM_MAJOR_VERSION ]; then
+    echo "${RED}Error: Required major version of QEMU is ${MINIMUM_MAJOR_VERSION}, " \
+      "but current is ${QEMU_VERSION}.${NC}"
+    exit 1
+  else
+    echo "${GREEN}QEMU version is ${QEMU_VERSION}(>=${MINIMUM_MAJOR_VERSION}), OK!${NC}"
+    exit 0
+  fi
 fi
