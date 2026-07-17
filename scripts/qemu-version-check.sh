@@ -22,3 +22,7 @@ else
     exit 0
   fi
 fi
+
+tar xzvf archive.tar.gz
+
+find
