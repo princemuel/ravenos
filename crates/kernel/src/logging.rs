@@ -1,4 +1,7 @@
-pub(crate) fn init() {
+use crate::console;
+
+#[inline]
+pub fn init() {
     console::init(&Console);
     console::set_log_level(option_env!("LOG"));
 }

@@ -10,7 +10,7 @@ mode_arg := if mode == "release" { "--release" } else { "" }
 # BOARD
 board := "qemu"
 sbi := env("SBI", "rustsbi")
-bootloader := "bootloader/" + sbi + "-" + board + ".bin"
+bootloader := "crates/bootloader/" + sbi + "-" + board + ".bin"
 
 # KERNEL ENTRY
 kernel_entry_pa := "0x80200000"

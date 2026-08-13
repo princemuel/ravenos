@@ -1,14 +1,19 @@
 [package]
-name                 = "console"
+name                 = "os"
 version.workspace    = true
 edition.workspace    = true
 repository.workspace = true
 license.workspace    = true
 publish.workspace    = true
 
+[lib]
+name = "kernel"
+
 [dependencies]
-log.workspace  = true
-spin.workspace = true
+log.workspace    = true
+riscv.workspace  = true
+sbi-rt.workspace = true
+spin.workspace   = true
 
 [lints]
 workspace = true

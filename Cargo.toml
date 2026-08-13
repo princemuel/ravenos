@@ -2,7 +2,7 @@
 
 [workspace]
 resolver = "3"
-members  = ["console", "kernel", "user"]
+members  = ["crates/kernel", "crates/user"]
 
 [workspace.package]
 version    = "0.1.0"
@@ -12,19 +12,19 @@ license    = "MIT OR Apache-2.0"
 publish    = false
 
 [workspace.dependencies]
-console = { path = "./console" }
 ############################
-log     = "0.4"
-riscv   = "0.16"
-sbi-rt  = "0.0.4"
-spin    = "0.12"
+eros   = "0.7"
+log    = "0.4"
+riscv  = "0.16"
+sbi-rt = "0.0.4"
+spin   = "0.12"
 
 [workspace.lints.clippy]
 all         = { level = "warn", priority = -1 }
 pedantic    = { level = "warn", priority = -1 }
 restriction = { level = "warn", priority = -1 }
 
-# --- Allowed (too noisy / not applicable) ---
+# ___ Allowed (too noisy / not applicable) ___
 arbitrary_source_item_ordering = "allow"
 expect_used                    = "allow"
 implicit_return                = "allow"  # redundant
@@ -41,7 +41,7 @@ unseparated_literal_suffix     = "allow"
 # std_instead_of_alloc       = "allow"  # uncomment if you add alloc later
 # implicit_return            = "allow"  # restriction lint, very noisy in Rust style
 
-# --- Escalate the ones you care most about ---
+# ___ Escalate the ones you care most about ___
 default_union_representation   = "deny"
 empty_drop                     = "deny"
 missing_asserts_for_indexing   = "deny"
@@ -49,53 +49,53 @@ mixed_read_write_in_expression = "deny"
 panic_in_result_fn             = "deny"
 
 [workspace.lints.rust]
-# --- Lint groups ---
-future-incompatible                        = { level = "warn", priority = -1 }
-nonstandard-style                          = { level = "warn", priority = -1 }
-rust-2018-idioms                           = { level = "warn", priority = -1 }
-unknown-or-malformed-diagnostic-attributes = { level = "warn", priority = -1 }
+# ___ Lint groups ___
+future_incompatible                        = { level = "warn", priority = -1 }
+nonstandard_style                          = { level = "warn", priority = -1 }
+rust_2018_idioms                           = { level = "warn", priority = -1 }
+unknown_or_malformed_diagnostic_attributes = { level = "warn", priority = -1 }
 unused                                     = { level = "warn", priority = -1 }
 
-# --- Undefined / unsafe behaviour ---
-ffi-unwind-calls       = "deny"  # C function unwinds into Rust = instant UB
-keyword-idents-2024    = "deny"
-non-ascii-idents       = "deny"  # homoglyph attacks (Cyrillic 'а' vs ASCII 'a')
-unsafe-op-in-unsafe-fn = "deny"  # forces explicit unsafe {} blocks inside unsafe fn
+# ___ Undefined / unsafe behaviour ___
+ffi_unwind_calls       = "deny"  # C function unwinds into Rust = instant UB
+keyword_idents_2024    = "deny"
+non_ascii_idents       = "deny"  # homoglyph attacks (Cyrillic 'а' vs ASCII 'a')
+unsafe_op_in_unsafe_fn = "deny"  # forces explicit unsafe {} blocks inside unsafe fn
 
-# --- API / interface correctness ---
-macro-use-extern-crate       = "deny"  # use explicit `use crate::macro` instead
-meta-variable-misuse         = "deny"  # malformed macro_rules! metavariables
-missing-copy-implementations = "warn"  # reminder to derive Copy where trivially safe
-# missing-docs               = "warn"  # uncomment when the project matures
-redundant-imports            = "deny"
-unnameable-types             = "warn"
-unreachable-pub              = "warn"
+# ___ API / interface correctness ___
+macro_use_extern_crate       = "deny"  # use explicit `use crate::macro` instead
+meta_variable_misuse         = "deny"  # malformed macro_rules! metavariables
+missing_copy_implementations = "warn"  # reminder to derive Copy where trivially safe
+# missing_docs               = "warn"  # uncomment when the project matures
+redundant_imports            = "deny"
+unnameable_types             = "warn"
+unreachable_pub              = "warn"
 
-# --- Type system / lifetime hygiene ---
-ambiguous-negative-literals   = "warn"  # -1i32.abs() is parsed as -(1i32.abs()), not (-1i32).abs()
-deref-into-dyn-supertrait     = "warn"  # &dyn Sub deref'd to &dyn Super. subtle dispatch change
-impl-trait-redundant-captures = "warn"
-redundant-lifetimes           = "deny"
-single-use-lifetimes          = "deny"
-trivial-casts                 = "deny"
-trivial-numeric-casts         = "deny"
-unit-bindings                 = "deny"
-unused-import-braces          = "deny"
-unused-lifetimes              = "warn"
-unused-qualifications         = "deny"
-unused-results                = "warn"
+# ___ Type system / lifetime hygiene ___
+ambiguous_negative_literals   = "warn"  # -1i32.abs() is parsed as _(1i32.abs()), not (-1i32).abs()
+deref_into_dyn_supertrait     = "warn"  # &dyn Sub deref'd to &dyn Super. subtle dispatch change
+impl_trait_redundant_captures = "warn"
+redundant_lifetimes           = "deny"
+single_use_lifetimes          = "deny"
+trivial_casts                 = "deny"
+trivial_numeric_casts         = "deny"
+unit_bindings                 = "deny"
+unused_import_braces          = "deny"
+unused_lifetimes              = "warn"
+unused_qualifications         = "deny"
+unused_results                = "warn"
 
-# --- Drop / resource safety ---
-let-underscore-drop = "warn"
+# ___ Drop / resource safety ___
+let_underscore_drop = "warn"
 
-# --- Style / future compatibility ---
-closure-returning-async-block = "warn"
-keyword-idents-2018           = "warn"
+# ___ Style / future compatibility ___
+closure_returning_async_block = "warn"
+keyword_idents_2018           = "warn"
 
-# --- Uncomment when ready ---
-# missing-docs              = "warn"   # enable once public API stabilises
-# unsafe-code               = "warn"   # enable/disable per project
-# unused-crate-dependencies = "warn"   # enable per-crate, noisy with dev-dependencies
+# ___ Uncomment when ready ___
+# missing_docs              = "warn"   # enable once public API stabilises
+# unsafe_code               = "warn"   # enable/disable per project
+# unused_crate_dependencies = "warn"   # enable per_crate, noisy with dev_dependencies
 
 [profile.bench]
 opt-level     = 3
@@ -105,15 +105,14 @@ codegen-units = 1
 
 # cargo build/run
 [profile.dev]
-# default is opt-level = '0', but that makes very
-# verbose machine code
+# default is opt_level = '0', but that makes very verbose machine code
 opt-level     = "s"
 # trade compile speed for slightly better optimisations
 codegen-units = 1
 
-# cargo build/run --release
+# cargo build/run __release
 [profile.release]
-# default is opt-level = '3', but that makes quite verbose machine code
+# default is opt_level = '3', but that makes quite verbose machine code
 opt-level     = "s"
 # Leave the debug symbols in (default is no debug info)
 debug         = 2

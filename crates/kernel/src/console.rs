@@ -1,5 +1,3 @@
-#![no_std]
-
 use log::{Level, LevelFilter, Log, Metadata, Record};
 use spin::Once;
 
@@ -35,6 +33,8 @@ pub fn set_log_level(val: Option<&str>) {
 
 #[inline]
 pub fn test_log() {
+    use crate::println;
+
     println!(
         r"
    ______                       __
@@ -54,7 +54,7 @@ pub fn test_log() {
 
 #[macro_export]
 macro_rules! print {
-    ($($arg:tt)*) => ($crate::print(core::format_args!($($arg)*)));
+    ($($arg:tt)*) => ($crate::console::print(core::format_args!($($arg)*)));
 }
 
 #[macro_export]

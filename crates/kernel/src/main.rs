@@ -1,14 +1,9 @@
 #![no_std]
 #![no_main]
 
-mod lang_items;
-mod logging;
-mod sbi;
-
 use core::arch::global_asm;
 
-use console::println;
-// use log::*;
+use kernel::{logging, println};
 
 global_asm!(include_str!("entry.asm"));
 
@@ -35,11 +30,12 @@ fn clear_bss() {
         .checked_sub((&raw const sbss).addr())
         .expect("ebss must not precede sbss - check the linker script's section ordering");
 
-    // SAFETY: `sbss`/`ebss` are linker-provided symbols marking the bounds
-    // of the .bss section (see linker.ld). At this point in early boot, no
-    // Rust references exist into this range, and the CPU's stack pointer is set to
-    // `.bss.stack`, which the linker script places outside [sbss, ebss). The
-    // range is therefore valid for writes and unaliased.
+    // SAFETY: `sbss`/`ebss` are linker-provided symbols
+    // marking the bounds of the .bss section (see linker.ld).
+    // At this point in early boot, no Rust references exist into this range,
+    // and the CPU's stack pointer is set to `.bss.stack`,
+    // which the linker script places outside [sbss, ebss).
+    // The range is therefore valid for writes and unaliased.
     unsafe {
         start.write_bytes(0, len);
     }
