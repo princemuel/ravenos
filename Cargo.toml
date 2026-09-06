@@ -110,9 +110,9 @@ opt-level     = "s"
 # trade compile speed for slightly better optimisations
 codegen-units = 1
 
-# cargo build/run __release
+# cargo build/run --release
 [profile.release]
-# default is opt_level = '3', but that makes quite verbose machine code
+# default is opt-level = '3', but that makes quite verbose machine code
 opt-level     = "s"
 # Leave the debug symbols in (default is no debug info)
 debug         = 2
