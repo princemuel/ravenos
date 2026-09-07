@@ -21,6 +21,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "361a90feb7004eca4019fb28352a9465666b24f840f5c3cddf0ff13920590b89"
 
 [[package]]
+name = "kernel"
+version = "0.1.0"
+dependencies = [
+ "log",
+ "riscv",
+ "sbi-rt",
+ "spin",
+]
+
+[[package]]
 name = "lock_api"
 version = "0.4.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -34,16 +44,6 @@ name = "log"
 version = "0.4.34"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f9f8bd3e56ce4dfc153cf470fffbfa98c7620958b312ca5c3a4b8d5181fd13c6"
-
-[[package]]
-name = "os"
-version = "0.1.0"
-dependencies = [
- "log",
- "riscv",
- "sbi-rt",
- "spin",
-]
 
 [[package]]
 name = "pastey"

@@ -14,14 +14,9 @@
           "arguments": ["--filename", "{buffer_path}", "--indent", "2"],
         },
       },
-    },
-    "reST": { "language_servers": ["esbonio"] },
+    }
   },
   "lsp": {
-    "esbonio": {
-      "binary": { "path": "/home/maia/.local/bin/esbonio", "arguments": ["server"] },
-      "initialization_options": { "sphinx": { "pythonCommand": ["/usr/bin/python3"] } },
-    },
     "rust-analyzer": {
       "initialization_options": {
         // Rust Analyzer settings

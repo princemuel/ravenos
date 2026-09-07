@@ -1,5 +1,5 @@
 [package]
-name                 = "os"
+name                 = "kernel"
 version.workspace    = true
 edition.workspace    = true
 repository.workspace = true
@@ -7,7 +7,7 @@ license.workspace    = true
 publish.workspace    = true
 
 [lib]
-name = "kernel"
+name = "kernel_lib"
 
 [dependencies]
 log.workspace    = true
