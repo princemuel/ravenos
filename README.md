@@ -94,7 +94,7 @@ This target triplet means:
 
 ### QEMU Emulator (7.0+)
 
-ravenos runs on a QEMU-emulated RISC-V 64 virtual machine and requires `qemu-system-riscv64` >= 7.0.
+ravenos _currently_ runs on a QEMU-emulated RISC-V 64 virtual machine and requires `qemu-system-riscv64` >= 7.0.
 
 **Arch Linux:**
 
