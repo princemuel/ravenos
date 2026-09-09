@@ -24,15 +24,18 @@ cd ravenos
 
 ```bash
 cargo build --release
+```
 
-rust-objcopy --strip-all target/riscv64gc-unknown-none-elf/release/os \
--Obinary target/riscv64gc-unknown-none-elf/release/os.bin
+```bash
+cargo objcopy --bin rvnoskrnl -- --strip-all -O binary rvnoskrnl.bin
+```
 
+```bash
 qemu-system-riscv64 \
   -machine virt \
   -nographic \
-  -bios bootloader/rustsbi.bin \
-  -device loader,file=target/riscv64gc-unknown-none-elf/release/os.bin,addr=0x80200000
+  -bios bootloader/rustsbi-qemu.bin \
+  -device loader,file=target/riscv64gc-unknown-none-elf/release/rvnoskrnl.bin,addr=0x80200000
 ```
 
 This will build the kernel and launch it inside a QEMU RISC-V 64 virtual machine.
@@ -69,8 +72,6 @@ Next, install some Rust-related packages.
 
 ```bash
 cargo install cargo-binutils
-rustup component add llvm-tools
-rustup component add rust-src
 ```
 
 ### RISC-V 64 Compilation Target
